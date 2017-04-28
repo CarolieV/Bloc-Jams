@@ -75,9 +75,16 @@ var albumPicasso = {
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
      }
  };
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+
+      songListContainer.addEventListener('mouseover', function(event) {
+         // #1
+         console.log(event.target);
+     });
 
      var albums = [albumPicasso, albumMarconi, caroliesAlbum];
      var index = 1;
