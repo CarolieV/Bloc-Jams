@@ -150,6 +150,13 @@ albumImage.addEventListener("click", function(event) {
         }
         return currentParent;
     }
+    if (element2.parentNode !== (element1)) {
+         console.log("No parent found")
+    }
+     if (element2.className !== (element1.className)) {
+          console.log("No parent found with that class name")
+     }
+         
 };
       var getSongItem = function(element) {
     switch (element.className) {
