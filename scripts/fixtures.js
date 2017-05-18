@@ -42,3 +42,4 @@ var albumPicasso = {
          { title: 'E', duration: '2:10'}
      ]
  };
+
