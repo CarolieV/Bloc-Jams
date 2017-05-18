@@ -181,6 +181,7 @@ var updatePlayerBarSong = function() {
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    setCurrentTimeInPlayBar();
 
 };
 
@@ -241,5 +242,38 @@ var previousSong = function() {
     $previousSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
 };
+var playPause = $('.main-controls .play-pause');
 
- };
+$document.ready(function()) {
+		$('.main-controls .play-pause').click(togglePlayerFromPlayerBar());
+
+var togglePlayerFromPlayerBar = function() {
+    var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+
+	if (currentSoundFile.play() == 'false') {
+		currentSongIndex = 'true';
+	    $('.main-controls .play-pause').html(playerBarPauseButton);
+	}
+	if (currentSoundFile.play() == 'true') {
+		currentSongIndex = 'false';
+	    $('.main-controls .play-pause').html(playerBarPlayButton);
+	}
+	//hit play, set var to true
+	//if is playing is false, play it, set to true
+	//else, false and pause
+	//if false, play, set value to true, vice versa (!=)
+var setCurrentTimeInPlayerBar = function(currentTime) {
+	currentTime = currentTime || document.getElementById('.current-time').text(currentSoundFile[i]);
+var setTotalTimeInPlayerBar = function(totalTime) {
+	totalTime = totalTime || document.getElementById('.total-time').text(currentSoundFile.length);
+
+var filterTimeCode = function(timeInSeconds) {
+	timeInSeconds || timeInSeconds = buzz.toTimer(mySound.getTime());
+}
+		//within update player bar, call total time, pass total time
+		//call setcurrent time with current time of song
+};
+//parsefloat: buzz method
+	filterTimeCode(setCurrentTimeInPlayerBar, setTotalTimeInPlayerBar);
+	filterTimeCode(createSongRow(songLength));
+	
