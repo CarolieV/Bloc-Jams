@@ -2,6 +2,7 @@ var setSong = function(songNumber) {
 	if (currentSoundFile) {
          currentSoundFile.stop();
      }
+
 currentlyPlayingSongNumber = parseInt(songNumber);
 currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
 currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
@@ -19,12 +20,6 @@ currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
          currentSoundFile.setVolume(volume);
      }
  };
-var getSongNumberCell = function(number) {
-return $('.song-item-number[data-song-number="' + number + '"]');
-
-currentlyPlayingSongNumber = parseInt(songNumber);
-currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
-}
 var getSongNumberCell = function(number) {
 return $('.song-item-number[data-song-number="' + number + '"]');
 
@@ -52,6 +47,7 @@ var createSongRow = function(songNumber, songName, songLength) {
 		// Switch from Play -> Pause button to indicate new song is playing.
 		$(this).html(pauseButtonTemplate);
 		 setSong(songNumber);
+
           
 		currentSoundFile.play();
 	         currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
@@ -70,11 +66,15 @@ var createSongRow = function(songNumber, songName, songLength) {
 	         currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
 		 updatePlayerBarSong();
     } else if (currentlyPlayingSongNumber === songNumber) {
-		// Switch from Pause -> Play button to pause currently playing song.
-		$(this).html(playButtonTemplate);
-	        $('.main-controls .play-pause').html(playerBarPlayButton);
-    		     setSong(null);
-		     currentSongFromAlbum = null;	
+		if (currentSoundFile.isPaused()) {
+                $(this).html(pauseButtonTemplate);
+                $('.main-controls .play-pause').html(playerBarPauseButton);
+                currentSoundFile.play();
+            } else {
+                $(this).html(playButtonTemplate);
+                $('.main-controls .play-pause').html(playerBarPlayButton);
+                currentSoundFile.pause();   
+            }
     }
 };
       
@@ -247,6 +247,7 @@ var updatePlayerBarSong = function() {
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    setCurrentTimeInPlayBar();
 
 };
 
@@ -259,6 +260,7 @@ var nextSong = function() {
     // Note that we're _incrementing_ the song here
     currentSongIndex++;
      currentSoundFile.play();
+
     if (currentSongIndex >= currentAlbum.songs.length) {
         currentSongIndex = 0;
     }
@@ -308,5 +310,38 @@ var previousSong = function() {
     $previousSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
 };
+var playPause = $('.main-controls .play-pause');
 
- };
+$document.ready(function()) {
+		$('.main-controls .play-pause').click(togglePlayerFromPlayerBar());
+
+var togglePlayerFromPlayerBar = function() {
+    var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+
+	if (currentSoundFile.play() == 'false') {
+		currentSongIndex = 'true';
+	    $('.main-controls .play-pause').html(playerBarPauseButton);
+	}
+	if (currentSoundFile.play() == 'true') {
+		currentSongIndex = 'false';
+	    $('.main-controls .play-pause').html(playerBarPlayButton);
+	}
+	//hit play, set var to true
+	//if is playing is false, play it, set to true
+	//else, false and pause
+	//if false, play, set value to true, vice versa (!=)
+var setCurrentTimeInPlayerBar = function(currentTime) {
+	currentTime = currentTime || document.getElementById('.current-time').text(currentSoundFile[i]);
+var setTotalTimeInPlayerBar = function(totalTime) {
+	totalTime = totalTime || document.getElementById('.total-time').text(currentSoundFile.length);
+
+var filterTimeCode = function(timeInSeconds) {
+	timeInSeconds || timeInSeconds = buzz.toTimer(mySound.getTime());
+}
+		//within update player bar, call total time, pass total time
+		//call setcurrent time with current time of song
+};
+//parsefloat: buzz method
+	filterTimeCode(setCurrentTimeInPlayerBar, setTotalTimeInPlayerBar);
+	filterTimeCode(createSongRow(songLength));
+	
